@@ -14,11 +14,13 @@ class Sudoku:
 
     def generate_board(self):
         """
-        Randomly generates a full Sudoku board
-        :return: True if a valid board was generated, false otherwise
+        Randomly generates a full Sudoku board and removes num_remove tiles from the grid
         """
         self.__fill_board()
         self.__create_user_grid()
+
+    def get_value(self, row, col):
+        return self.__matrix[row][col]
 
     def __fill_board(self):
         self.__fill_diagonals()
@@ -86,7 +88,7 @@ class Sudoku:
         Prints out the current state of the Sudoku board
         """
         for i in range(self.__size):
-            if i % 3 == 0: print('-' * (self.__size*2 + int(math.sqrt(self.__size))))
+            if i % 3 == 0: print('-' * (self.__size * 2 + int(math.sqrt(self.__size))))
             for j in range(self.__size):
                 if j % 3 == 0: print('|', end="")
                 print(self.__matrix[i][j], end=" ")
