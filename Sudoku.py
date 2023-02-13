@@ -22,6 +22,14 @@ class Sudoku:
     def get_value(self, row, col):
         return self.__matrix[row][col]
 
+    def set_value(self, n, row, col):
+        self.__matrix[row][col] = n
+
+    def clear(self):
+        for i in range(self.__size):
+            for j in range(self.__size):
+                self.__matrix[i][j] = 0
+
     def __fill_board(self):
         self.__fill_diagonals()
         self.__fill_values(0, 0)
