@@ -3,7 +3,7 @@ import math
 
 
 class Sudoku:
-    def __init__(self, size=9, num_remove=40):
+    def __init__(self, size=9, num_remove=50):
         """ Sudoku constructor
         :param size: length of each side of the grid (default 9)
         :param num_remove: number of cells to remove to create a board to solve (default 40)
@@ -20,12 +20,27 @@ class Sudoku:
         self.__create_user_grid()
 
     def get_value(self, row, col):
+        """
+        Returns the value of matrix[row][col]
+        :param row: row of cell
+        :param col: column of cell
+        :return: Value of matrix[row][col]
+        """
         return self.__matrix[row][col]
 
     def set_value(self, n, row, col):
+        """
+        Assigns n into matrix[row][col]
+        :param n: number to assign to cell
+        :param row: row of cell
+        :param col: column of cell
+        """
         self.__matrix[row][col] = n
 
     def clear(self):
+        """
+        Sets the value of every cell to 0
+        """
         for i in range(self.__size):
             for j in range(self.__size):
                 self.__matrix[i][j] = 0
@@ -88,8 +103,15 @@ class Sudoku:
         return self.__valid_row(n, row) and self.__valid_col(n, col) and self.__valid_box(n, row, col)
 
     def __create_user_grid(self):
-        for _ in range(self.__num_remove):
-            self.__matrix[random.randint(0, self.__size - 1)][random.randint(0, self.__size - 1)] = 0
+        i = 0
+        while i < self.__num_remove:
+            rand_row = random.randint(0, self.__size - 1)
+            rand_col = random.randint(0, self.__size - 1)
+            if self.__matrix[rand_row][rand_col] == 0:
+                i -= 1
+            else:
+                self.__matrix[rand_row][rand_col] = 0
+            i += 1
 
     def print(self):
         """
