@@ -2,25 +2,30 @@ from Sudoku import *
 import tkinter as tk
 from functools import partial
 
+
+def color_config(widget, color, event):
+    widget.configure(bg=color)
+
+
+def change_number(widget, event):
+    if event.char in numbers:
+        widget.delete(1.0, tk.END)
+        widget.insert(1.0, event.char, "center")
+    return "break"
+
+
+def check_board():
+    return True
+
+
 if __name__ == '__main__':
     board = Sudoku(9, 40)
     board.generate_board()
 
     win = tk.Tk()
     win.title('Sudoku')
+    win.configure(bg="#595958")
     win.resizable(width=False, height=False)
-
-
-    def color_config(widget, color, event):
-        widget.configure(bg=color)
-
-
-    def change_number(widget, event):
-        if event.char in numbers:
-            widget.delete(1.0, tk.END)
-            widget.insert(1.0, event.char, "center")
-        return "break"
-
 
     numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
     colors = [['#999997', '#595958', '#999997'],
@@ -29,6 +34,7 @@ if __name__ == '__main__':
     rows = []
 
     # create grid of text widgets to display and accept user input of sudoku board
+
     for i in range(9):
         cols = []
         for j in range(9):
@@ -52,13 +58,15 @@ if __name__ == '__main__':
             cols.append(e)
         rows.append(cols)
 
-    check_board = tk.Button(win, height=3, width=10, text="Check", font=("Roboto", 13, "bold"))
+    check_board = tk.Button(win, height=3, width=10, text="Check", font=("Roboto", 13, "bold"), bg="#999997",
+                            command=check_board)
     check_board.grid(row=0, column=9, sticky=tk.NSEW)
 
-    clear_board = tk.Button(win, height=3, width=10, text="Clear", font=("Roboto", 13, "bold"))
+    clear_board = tk.Button(win, height=3, width=10, text="Clear", font=("Roboto", 13, "bold"), bg="#595958")
     clear_board.grid(row=1, column=9, sticky=tk.NSEW)
 
-    quit_btn = tk.Button(win, height=3, width=10, text="Quit", font=("Roboto", 13, "bold"), command=win.destroy)
+    quit_btn = tk.Button(win, height=3, width=10, text="Quit", font=("Roboto", 13, "bold"), command=win.destroy,
+                         bg="#999997")
     quit_btn.grid(row=2, column=9, sticky=tk.NSEW)
 
     win.mainloop()

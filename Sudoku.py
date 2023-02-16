@@ -19,6 +19,12 @@ class Sudoku:
         self.__fill_board()
         self.__create_user_grid()
 
+    def get_size(self):
+        """
+        :return: Length of board side
+        """
+        return self.__size
+
     def get_value(self, row, col):
         """
         Returns the value of matrix[row][col]
